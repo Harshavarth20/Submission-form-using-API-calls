@@ -7,52 +7,53 @@
     <title>Fetch API Example</title>
     <style>
         .user-box {
-            border: 1px solid #ccc;
+            border: 1px solid #000;
             padding: 10px;
             margin: 10px;
             border-radius: 5px;
-            box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+            background-color: #f0f0f0;
         }
     </style>
 </head>
 
 <body>
-    <h1>Users</h1>
     <div id="user-container"></div>
 
     <script>
+        // Define the function to fetch data
         async function fetchData() {
             try {
+                // Fetch data from the API
                 const response = await fetch('https://jsonplaceholder.typicode.com/users');
 
+                // Check if the response is okay
                 if (!response.ok) {
                     throw new Error('Network response was not ok ' + response.statusText);
                 }
-
                 const data = await response.json();
-                displayUsers(data);
+                displayData(data);
             } catch (error) {
                 console.error('There was a problem with the fetch operation:', error);
             }
         }
-
-        function displayUsers(users) {
+        // Function to display data on the webpage
+        function displayData(users) {
             const container = document.getElementById('user-container');
-            users.forEach(user => {
+            for (let i = 0; i < users.length; i++) {
+                // Create a div element for each user
                 const userBox = document.createElement('div');
                 userBox.className = 'user-box';
                 userBox.innerHTML = `
-          <h2>${user.name}</h2>
-          <p><strong>Email:</strong> ${user.email}</p>
-          <p><strong>Phone:</strong> ${user.phone}</p>
-          <p><strong>Website:</strong> <a href="http://${user.website}" target="_blank">${user.website}</a></p>
-        `;
+                <h3>${users[i].name}</h3>
+                <p><strong>Email:</strong> ${users[i].email}</p>
+                <p><strong>Phone:</strong> ${users[i].phone}</p>
+                <p><strong>Website:</strong> ${users[i].website}</p>`;
                 container.appendChild(userBox);
-            });
+            }
         }
 
-        // Fetch data when the page loads
-        window.onload = fetchData;
+        // Call the function to fetch data when the script runs
+        fetchData();
     </script>
 </body>
 
