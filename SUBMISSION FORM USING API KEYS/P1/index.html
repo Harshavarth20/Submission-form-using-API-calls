@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch API Example</title>
+</head>
+
+<body>
+    <script>
+        // Fetch data from the API 
+        fetch('https://jsonplaceholder.typicode.com/users')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            }).then(users => { // Process and print data using afor loop
+                for (let i = 0; i < users.length; i++) {
+                    console.log(`User ${i + 1}:`);
+                    console.log(`Name: ${users[i].name}`);
+                    console.log(`Email: ${users[i].email}`);
+                    console.log(`Phone: ${users[i].phone}`);
+                    console.log(`username: ${users[i].username}`);
+                    console.log(`address: ${users[i].address}`);
+                    console.log(`website: ${users[i].website}`);
+                    console.log(`company: ${users[i].company}`);
+
+                }
+            }).catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+            });
+    </script>
+</body>
+
+</html>
